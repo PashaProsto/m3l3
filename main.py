@@ -62,12 +62,22 @@ class DB_Manager:
     def get_skills(self):
         return self.__select_data("SELECT * FROM skills")
 
+
+
 if __name__ == '__main__':
     manager = DB_Manager(DATABASE)
     manager.default_insert()
+    def insert_project(self, project_name, status_id, github_link):
+        sql = 'INSERT INTO projects (project_name, status_id, github_link) VALUES (?, ?, ?)'
+        # Мы используем кортеж с данными
+        conn = sqlite3.connect(self.database)
+        with conn:
+            conn.execute(sql, (project_name, status_id, github_link))
+            conn.commit()
+
+    my_github_url = "https://github.com/PashaProsto/m3l3.git"
     
-    print("Статусы в базе:")
-    print(manager.get_statuses())
+    # Пример вызова (если метод реализован):
+    # manager.insert_project('Бот-портфолио', 3, my_github_url)
     
-    print("\nНавыки в базе:")
-    print(manager.get_skills())
+    print("Информация о проекте обновлена!")
